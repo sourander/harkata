@@ -1,0 +1,17 @@
+services:
+  harkata-dev:
+    image: ghcr.io/astral-sh/uv:python3.13-bookworm
+    environment:
+      - PYTHONDONTWRITEBYTECODE=1 # Prevents Python from writing .pyc files or __pycache__ directories
+    build:
+      context: .
+      dockerfile: harkata-dev.Dockerfile
+    ports:
+      - "8888:5000"
+    volumes:
+      - ./src/harkata:/app/src/harkata
+      - /app/node_modules
+    working_dir: /app
+    command: >
+      bash -c "uv sync &&
+      uv run fastapi run src/harkata/app.py --port 5000"
