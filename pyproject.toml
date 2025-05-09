@@ -1,0 +1,20 @@
+[project]
+name = "harkata"
+version = "0.1.0"
+description = "Harkata is a lightweight, stateless backend for real-time quizzes."
+readme = "README.md"
+authors = [
+    { name = "Jani Sourander", email = "jani.sourander@kamk.fi" }
+]
+requires-python = ">=3.13"
+dependencies = [
+    "fastapi>=0.115.12",
+    "uvicorn>=0.34.2",
+]
+
+[project.scripts]
+harkata = "harkata:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
