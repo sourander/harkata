@@ -50,20 +50,20 @@ Development-tilassa sovellus käynnistyy osoitteeseen `http://localhost:3333` ja
 docker compose up -d
 ```
 
-Jos haluat, että VS Codessa toimii linter, niin varmista, että sinulla on lokaali node_modules-kansio. Tämä onnistuu ajamalla `src/arviointi/` hakemistossa `npm install`.
+Jos haluat, että VS Codessa toimii linter, niin varmista, että sinulla on lokaali node_modules-kansio. Tämä onnistuu ajamalla `src/harkata/` hakemistossa `npm install`.
 
 ### Production (local test)
 
 Jos haluat kokeilla sovellusta tuotantotilassa, voit käyttää seuraavaa komentoa:
 
 ```bash
-docker buildx build -t arviointi -f arviointi-prd.Dockerfile .
-docker run --rm --name arviointi -p 8888:5000 arviointi
+docker buildx build -t harkata -f harkata-prd.Dockerfile .
+docker run --rm --name harkata -p 8888:5000 harkata
 ```
 
 ### Production (Dokku) - TODO
 
-Varsinainen tuotantoon ajaminen tapahtuu Dokku-palvelimella. Tämä tehdään Github Actionsin toimesta (ks. `.github/workflows/dokku-arviointi-deploy.yml`). Dokku käyttää Gittiä nokkellalla tavalla uuden version puskemiseen tuotantoon. Alla esimerkki siitä, miten uusi versio puskettaisiin Dokkuun, jos Actions ei olisi käytössä.
+Varsinainen tuotantoon ajaminen tapahtuu Dokku-palvelimella. Tämä tehdään Github Actionsin toimesta (ks. `.github/workflows/dokku-harkata-deploy.yml`). Dokku käyttää Gittiä nokkellalla tavalla uuden version puskemiseen tuotantoon. Alla esimerkki siitä, miten uusi versio puskettaisiin Dokkuun, jos Actions ei olisi käytössä.
 
 <details>
 <summary>Olettaen että nämä on ajettu dokku-hostissa... (click open)</summary>
@@ -89,7 +89,7 @@ git remote add dokku dokku@$domain:$app_name
 git push dokku main
 ```
 
-Sivusto julkaistana osoitteeseen `{app_name}.{domain}`, esimerkiksi `arviointi.munpaas.com`.
+Sivusto julkaistana osoitteeseen `{app_name}.{domain}`, esimerkiksi `harkata.munpaas.com`.
 
 ## Current Status
 
