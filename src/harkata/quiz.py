@@ -7,8 +7,8 @@ from harkata.models.responses import QuizCreateResponse, QuizListResponse, QuizK
 class ActiveQuiz:
     """Class representing an active quiz instance in memory."""
     
-    def __init__(self, quiz_model: Quiz, public_key: str, private_key: str):
-        self.model = quiz_model
+    def __init__(self, quiz_contents: Quiz, public_key: str, private_key: str):
+        self.quiz_contents = quiz_contents
         self.public_key = public_key
         self.private_key = private_key
         self.created_at = time.time()
@@ -37,12 +37,12 @@ class QuizManager:
         self.quizzes: Dict[str, ActiveQuiz] = {}  # public_key -> Quiz object
         self.teacher_keys: Dict[str, str] = {}  # private_key -> public_key
     
-    def create_quiz(self, quiz_model: Quiz) -> Tuple[str, str]:
+    def create_quiz(self, quiz_contents: Quiz) -> QuizCreateResponse:
         """Create a new quiz and return public and private keys."""
         public_key = str(uuid.uuid4())
         private_key = str(uuid.uuid4())
         
-        quiz = ActiveQuiz(quiz_model, public_key, private_key)
+        quiz = ActiveQuiz(quiz_contents, public_key, private_key)
         self.quizzes[public_key] = quiz
         self.teacher_keys[private_key] = public_key
 
@@ -74,7 +74,7 @@ class QuizManager:
         active_quizzes = [
             QuizKeyName(
                 quiz_public_key=quiz.public_key, 
-                quiz_name=quiz.model.quiz_name,
+                quiz_name=quiz.quiz_contents.quiz_name,
                 time_to_live=int(quiz.created_at + 14400 - time.time()),
             )
             for quiz in self.quizzes.values()

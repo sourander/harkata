@@ -10,7 +10,6 @@ services:
       - "8888:5000"
     volumes:
       - ./src/harkata:/app/src/harkata
-      - /app/node_modules
     working_dir: /app
     command: >
       bash -c "uv sync &&
